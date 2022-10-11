@@ -6,7 +6,7 @@ except:
     coloring = False
 
 def splitSentenceIntoWords(searchInput):
-    searchSubstrings = [searchInput]
+    searchSubstrings = []
     words = searchInput.split(' ')
     searchSubstrings.extend(words)
     return searchSubstrings
@@ -48,6 +48,8 @@ def doASearch():
     print("STARTING NEW SEARCH...\n")
     searchInput = input("Type a search string:     ")
     myFilterWords = splitSentenceIntoWords(searchInput)
+    print("Looking for lines that contain all of these words:")
+    print(myFilterWords)
     myLineList = getLines()
     linesFoundPrev = filterLines(lineList=myLineList, filterWords=myFilterWords)
     linesFound = filterOutTitleLines(linesFoundPrev)
