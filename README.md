@@ -1,5 +1,5 @@
-# a-FMHY-search-engine
-A search engine for the link collection FMHY (https://fmhy.tk/)
+# A basic search engine for [FMHY](https://fmhy.tk/)
+(a bit better than doing Ctrl+F on its [single-page export file](https://raw.githubusercontent.com/nbats/FMHYedit/main/single-page)
 
 # Installation / Requirements
 Script to be executed with [Python](https://www.python.org/)
