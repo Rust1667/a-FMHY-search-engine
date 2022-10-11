@@ -1,5 +1,5 @@
 # A basic search engine for [FMHY](https://fmhy.tk/)
-(a bit better than doing Ctrl+F on its [single-page export file](https://raw.githubusercontent.com/nbats/FMHYedit/main/single-page)
+*A bit better than doing <Ctrl+F> on its [single-page export file](https://raw.githubusercontent.com/nbats/FMHYedit/main/single-page)*
 
 ## Installation / Requirements
 Script to be executed with [Python](https://www.python.org/)
@@ -18,4 +18,4 @@ pip install termcolor
 ## Usage
 Example:
 ![](fmhy-search.py-example-screenshot.png)
-(termcolor package is required to see the coloring on the search terms.)
+*(the termcolor package is required to see the coloring on the search terms.)*
