@@ -1,6 +1,9 @@
 # A basic search engine for [FMHY](https://fmhy.tk/)
 *A bit better than doing <Ctrl+F> on its [single-page export file](https://raw.githubusercontent.com/nbats/FMHYedit/main/single-page) from [its github repo](https://github.com/nbats/FMHYedit)*
 
+It looks like this:
+![](fmhy-search.py-example-screenshot.png)
+
 ## Installation / Requirements
 Script to be executed with [Python](https://www.python.org/)
 
@@ -10,12 +13,7 @@ Neccesary package: (most likely already installed with python)
 ```
 pip install request
 ```
-Optional package:
+Optional package (required to see the coloring on the search terms):
 ```
 pip install termcolor
 ```
-
-## Usage
-Example:
-![](fmhy-search.py-example-screenshot.png)
-*(the termcolor package is required to see the coloring on the search terms.)*
