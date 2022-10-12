@@ -60,7 +60,7 @@ def doASearch():
         textToPrint = "\n\n".join(linesFound)
     print("Printing " + str(len(linesFound)) + " search results:\n")
     print(textToPrint)
-    print("Search ended with " + str(len(linesFound)) + " results found.\n\n\n")
+    print("\nSearch ended with " + str(len(linesFound)) + " results found.\n\n\n")
     doASearch()
 
 print("Search examples: 'youtube frontend', 'streaming site'.\n")
