@@ -6,10 +6,9 @@ except:
     coloring = False
 
 def splitSentenceIntoWords(searchInput):
-    searchSubstrings = []
-    words = searchInput.split(' ')
-    searchSubstrings.extend(words)
-    return searchSubstrings
+    searchInput = searchInput.lower()
+    searchWords = searchInput.split(' ')
+    return searchWords
 
 def getLines():
     target_url = "https://raw.githubusercontent.com/nbats/FMHYedit/main/single-page"
