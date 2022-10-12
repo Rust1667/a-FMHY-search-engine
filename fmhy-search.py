@@ -27,10 +27,13 @@ def filterLines(lineList, filterWords):
 
 def filterOutTitleLines(lineList):
     filteredList = []
+    sectionTitleList = []
     for line in lineList:
         if line[0] != "#":
             filteredList.append(line)
-    return filteredList
+        else:
+            sectionTitleList.append(line)
+    return [filteredList, sectionTitleList]
 
 
 def highlightWord(sentence, word):
@@ -51,14 +54,19 @@ def colorLinesFound(linesFound, filterWords):
 
 
 def doASearch():
+    #intro
     print("STARTING NEW SEARCH...\n")
     searchInput = input("Type a search string:     ")
     myFilterWords = splitSentenceIntoWords(searchInput)
     print("Looking for lines that contain all of these words:")
     print(myFilterWords)
+
+    #main results
     myLineList = getLines()
     linesFoundPrev = filterLines(lineList=myLineList, filterWords=myFilterWords)
-    linesFound = filterOutTitleLines(linesFoundPrev)
+    linesFoundAll = filterOutTitleLines(linesFoundPrev)
+    linesFound = linesFoundAll[0]
+    sectionTitleList = linesFoundAll[1]
     if coloring == True:
         linesFoundColored = colorLinesFound(linesFound, myFilterWords)
         textToPrint = "\n\n".join(linesFoundColored)
@@ -66,7 +74,15 @@ def doASearch():
         textToPrint = "\n\n".join(linesFound)
     print("Printing " + str(len(linesFound)) + " search results:\n")
     print(textToPrint)
-    print("\nSearch ended with " + str(len(linesFound)) + " results found.\n\n\n")
+    print("\nSearch ended with " + str(len(linesFound)) + " results found.\n")
+
+    #title section results
+    if len(sectionTitleList)>0:
+        print("Also there are these section titles: ")
+        print("\n".join(sectionTitleList))
+    
+    #repeat the search
+    print("\n\n\n")   
     doASearch()
 
 print("Search examples: 'youtube frontend', 'streaming site'.\n")
