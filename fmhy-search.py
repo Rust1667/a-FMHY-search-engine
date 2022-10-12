@@ -33,15 +33,22 @@ def filterOutTitleLines(lineList):
             filteredList.append(line)
     return filteredList
 
+
+def highlightWord(sentence, word):
+    return sentence.replace(word, colored(word,'white','on_red'))
+
 def colorLinesFound(linesFound, filterWords):
-    coloredLinesList = []    
+    coloredLinesList = []
+    filterWordsCapitalizedToo=[]
+    for word in filterWords:
+        filterWordsCapitalizedToo.append(word.capitalize())
+    filterWordsCapitalizedToo.extend(filterWords)
     for line in linesFound:
-        text = line
-        l1 = filterWords
-        coloredLine = " ".join(colored(t,'white','on_red') if t in l1 else t for t in text.lower().split())
+        for word in filterWordsCapitalizedToo:
+            line = highlightWord(line, word)
+        coloredLine = line
         coloredLinesList.append(coloredLine)
     return coloredLinesList
-
 
 
 def doASearch():
