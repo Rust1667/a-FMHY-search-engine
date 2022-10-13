@@ -15,7 +15,7 @@ def getAllLines():
     target_url = "https://raw.githubusercontent.com/nbats/FMHYedit/main/single-page"
     print("Loading FMHY single-page file from Github...")
     response = requests.get(target_url)
-    print("Loaded...\n")
+    print("Loaded.\n")
     data = response.text
     lines = data.split('\n')
     return lines
