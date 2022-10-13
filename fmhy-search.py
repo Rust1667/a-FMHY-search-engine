@@ -5,6 +5,7 @@ try:
 except:
     coloring = False
 
+
 def splitSentenceIntoWords(searchInput):
     searchInput = searchInput.lower()
     searchWords = searchInput.split(' ')
@@ -37,7 +38,7 @@ def filterOutTitleLines(lineList):
 
 
 def highlightWord(sentence, word):
-    return sentence.replace(word, colored(word,'white','on_red'))
+    return sentence.replace(word, colored(word,'red'))
 
 def colorLinesFound(linesFound, filterWords):
     coloredLinesList = []
@@ -87,5 +88,3 @@ def doASearch():
 
 print("Search examples: 'youtube frontend', 'streaming site'.\n")
 doASearch()
-
-
