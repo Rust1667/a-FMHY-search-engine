@@ -11,9 +11,11 @@ def splitSentenceIntoWords(searchInput):
     searchWords = searchInput.split(' ')
     return searchWords
 
-def getLines():
+def getAllLines():
     target_url = "https://raw.githubusercontent.com/nbats/FMHYedit/main/single-page"
+    print("Loading FMHY single-page file from Github...")
     response = requests.get(target_url)
+    print("Loaded...\n")
     data = response.text
     lines = data.split('\n')
     return lines
@@ -63,7 +65,7 @@ def doASearch():
     print(myFilterWords)
 
     #main results
-    myLineList = getLines()
+    myLineList = lineList
     linesFoundPrev = filterLines(lineList=myLineList, filterWords=myFilterWords)
     linesFoundAll = filterOutTitleLines(linesFoundPrev)
     linesFound = linesFoundAll[0]
@@ -86,5 +88,6 @@ def doASearch():
     print("\n\n\n")   
     doASearch()
 
+lineList = getAllLines()
 print("Search examples: 'youtube frontend', 'streaming site'.\n")
 doASearch()
