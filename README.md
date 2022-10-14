@@ -1,4 +1,4 @@
-# A basic search engine for [FMHY](https://fmhy.tk/) (a Python script)
+# A basic search engine for [FMHY](https://www.reddit.com/r/FREEMEDIAHECKYEAH/) (a Python script)
 *In some cases a bit better than doing <Ctrl+F> on its [single-page export file](https://raw.githubusercontent.com/nbats/FMHYedit/main/single-page) from [its Github repo](https://github.com/nbats/FMHYedit)*
 
 It looks like this:
