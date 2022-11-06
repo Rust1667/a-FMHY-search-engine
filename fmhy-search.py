@@ -12,11 +12,15 @@ def splitSentenceIntoWords(searchInput):
     return searchWords
 
 def getAllLines():
-    target_url = "https://raw.githubusercontent.com/nbats/FMHYedit/main/single-page"
     print("Loading FMHY single-page file from Github...")
-    response = requests.get(target_url)
+    response1 = requests.get("https://raw.githubusercontent.com/nbats/FMHYedit/main/single-page")
     print("Loaded.\n")
-    data = response.text
+
+    print("Loading FMHY MISCGuide.md file from Github...")
+    response2 = requests.get("https://raw.githubusercontent.com/nbats/FMHYedit/main/MISCGuide.md")
+    print("Loaded.\n")
+
+    data = response1.text + response2.text
     lines = data.split('\n')
     return lines
 
@@ -89,5 +93,5 @@ def doASearch():
     doASearch()
 
 lineList = getAllLines()
-print("Search examples: 'youtube frontend', 'streaming site'.\n")
+print("Search examples: 'youtube frontend', 'streaming site', 'rare movies'...\n")
 doASearch()
