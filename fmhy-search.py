@@ -16,11 +16,7 @@ def getAllLines():
     response1 = requests.get("https://raw.githubusercontent.com/nbats/FMHYedit/main/single-page")
     print("Loaded.\n")
 
-    print("Loading FMHY MISCGuide.md file from Github...")
-    response2 = requests.get("https://raw.githubusercontent.com/nbats/FMHYedit/main/MISCGuide.md")
-    print("Loaded.\n")
-
-    data = response1.text + response2.text
+    data = response1.text
     lines = data.split('\n')
     return lines
 
@@ -93,5 +89,5 @@ def doASearch():
     doASearch()
 
 lineList = getAllLines()
-print("Search examples: 'youtube frontend', 'streaming site', 'rare movies'...\n")
+print("Search examples: 'youtube frontend', 'streaming site', 'rare movies', 'userscripts'...\n")
 doASearch()
