@@ -1,4 +1,6 @@
 import requests
+from tkinter import messagebox
+
 coloring = True
 try:
     from termcolor import colored
@@ -58,35 +60,46 @@ def colorLinesFound(linesFound, filterWords):
 
 def doASearch():
     #intro
-    print("STARTING NEW SEARCH...\n")
+    print("\nSTARTING NEW SEARCH...\n")
+    print("You can type exit in order to exit the program.")
     searchInput = input("Type a search string:     ")
     myFilterWords = splitSentenceIntoWords(searchInput)
-    print("Looking for lines that contain all of these words:")
-    print(myFilterWords)
 
-    #main results
-    myLineList = lineList
-    linesFoundPrev = filterLines(lineList=myLineList, filterWords=myFilterWords)
-    linesFoundAll = filterOutTitleLines(linesFoundPrev)
-    linesFound = linesFoundAll[0]
-    sectionTitleList = linesFoundAll[1]
-    if coloring == True:
-        linesFoundColored = colorLinesFound(linesFound, myFilterWords)
-        textToPrint = "\n\n".join(linesFoundColored)
-    else:
-        textToPrint = "\n\n".join(linesFound)
-    print("Printing " + str(len(linesFound)) + " search results:\n")
-    print(textToPrint)
-    print("\nSearch ended with " + str(len(linesFound)) + " results found.\n")
+    if searchInput != "exit" and len(searchInput) != 0:
+        print("Looking for lines that contain all of these words:")
+        print(myFilterWords)
 
-    #title section results
-    if len(sectionTitleList)>0:
-        print("Also there are these section titles: ")
-        print("\n".join(sectionTitleList))
+        #main results
+        myLineList = lineList
+        linesFoundPrev = filterLines(lineList=myLineList, filterWords=myFilterWords)
+        linesFoundAll = filterOutTitleLines(linesFoundPrev)
+        linesFound = linesFoundAll[0]
+        sectionTitleList = linesFoundAll[1]
+        if coloring == True:
+            linesFoundColored = colorLinesFound(linesFound, myFilterWords)
+            textToPrint = "\n\n".join(linesFoundColored)
+        else:
+            textToPrint = "\n\n".join(linesFound)
+        print("Printing " + str(len(linesFound)) + " search results:\n")
+        print(textToPrint)
+        print("\nSearch ended with " + str(len(linesFound)) + " results found.\n")
+
+        #title section results
+        if len(sectionTitleList)>0:
+            print("Also there are these section titles: ")
+            print("\n".join(sectionTitleList))
     
-    #repeat the search
-    print("\n\n\n")   
-    doASearch()
+        #repeat the search
+        print("\n\n\n")   
+        doASearch()
+    
+    elif len(searchInput) == 0:
+        messagebox.showerror("You typed nothing!", "You can't search nothing! Try again, or type exit to quit the program.")
+        doASearch()
+
+    else:
+        print("Exiting program...")
+        exit()
 
 lineList = getAllLines()
 print("Search examples: 'youtube frontend', 'streaming site', 'rare movies', 'userscripts'...\n")
