@@ -4,19 +4,19 @@
 It looks like this:
 ![](example-screenshot.png)
 
-## Installation
-Script to be executed with [Python](https://www.python.org/)
+## How to get it working
+### Requirements
+1) You need to have [Python](https://www.python.org/) installed.
 
-You could 
-- install [Python](https://www.python.org/) on your PC or 
-- execute it on a site like [this one](https://www.programiz.com/python-programming/online-compiler/) (copy-paste the code from the file [fmhy-search.py](https://github.com/Rust1667/a-FMHY-search-engine/blob/main/fmhy-search.py) and click 'Run')
+2) You need to install some Python packages. To check if they are installed, and install the missing ones, type this in the terminal:
+```
+pip install requests termcolor platform colorama
+```
+### Usage
+Now you can execute the script. Depending on the OS you are in:
+- If on Windows, the easiest way is to right click on the script ()which is the file "fmhy-search.py") and "Open with" Python.
 
-### Package requirements
-Neccesary package: (most likely already installed with Python)
+- If on Linux, type on the terminal:
 ```
-pip install request
-```
-Optional package (required to see the coloring on the search terms):
-```
-pip install termcolor
+python3 /<route>/fmhy-search.py
 ```
