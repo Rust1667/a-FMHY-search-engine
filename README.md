@@ -14,7 +14,7 @@ pip install requests termcolor platform colorama
 ```
 ### Usage
 Now you can execute the script. Depending on the OS you are in:
-- If on Windows, the easiest way is to right click on the script ()which is the file "fmhy-search.py") and "Open with" Python.
+- If on Windows, the easiest way is to right click on the script (which is the file "fmhy-search.py") and "Open with" Python.
 
 - If on Linux, type on the terminal:
 ```
