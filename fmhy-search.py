@@ -66,6 +66,13 @@ def doASearch():
     #intro
     print("STARTING NEW SEARCH...\n")
     searchInput = input("Type a search string:     ")
+
+    #make sure the input is right before continuing
+    if searchInput == "exit" or searchInput == "":
+        print("The script is closing...")
+        return
+
+    #intro to the search results
     myFilterWords = splitSentenceIntoWords(searchInput)
     print("Looking for lines that contain all of these words:")
     print(myFilterWords)
@@ -95,5 +102,5 @@ def doASearch():
     doASearch()
 
 lineList = getAllLines()
-print("Search examples: 'youtube frontend', 'streaming site', 'rare movies', 'userscripts'...\n")
+print("Search examples: 'youtube frontend', 'streaming site', 'rare movies', 'userscripts'... You can also type 'exit' or nothing to close the script.\n")
 doASearch()
