@@ -1,7 +1,13 @@
 import requests
+
+#enable text coloring only if the requirements are met
 coloring = True
 try:
     from termcolor import colored
+    import platform
+    if platform.system() == 'Windows':
+        import colorama
+        colorama.init()
 except:
     coloring = False
 
