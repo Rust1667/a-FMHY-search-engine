@@ -4,10 +4,8 @@ import requests
 coloring = True
 try:
     from termcolor import colored
-    import platform
-    if platform.system() == 'Windows':
-        import colorama
-        colorama.init()
+    import colorama
+    colorama.init()
 except:
     coloring = False
 

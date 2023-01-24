@@ -10,7 +10,7 @@ It looks like this:
 
 2) You need to install some Python packages. To check if they are installed, and install the missing ones, type this in the terminal:
 ```
-pip install requests termcolor platform colorama
+pip install requests termcolor colorama
 ```
 ### Usage
 Now you can execute the script. Depending on the OS you are in:
