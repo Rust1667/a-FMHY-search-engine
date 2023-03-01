@@ -33,6 +33,18 @@ def getAllLines():
     lines = data.split('\n')
     return lines
 
+
+def checkQueryContainedExactlyInLine(line, searchQuery):
+    line = line.lower()
+    searchQuery = searchQuery.lower()
+    return (searchQuery in line)
+
+def moveExactMatchesToFront(myList, searchQuery):
+    for i in range(len(myList)):
+        if checkQueryContainedExactlyInLine(myList[i], searchQuery):
+            myList.insert(0, myList.pop(i))
+    return myList
+
 def checkElements(list1, list2):
     for element in list1:
         if element not in list2:
@@ -104,6 +116,7 @@ def doASearch():
     myLineList = lineList
     linesFoundPrev = filterLines(myLineList, searchInput)
     linesFoundPrev = moveBetterMatchesToFront(linesFoundPrev, searchInput)
+    linesFoundPrev = moveExactMatchesToFront(linesFoundPrev, searchInput)
     linesFoundAll = filterOutTitleLines(linesFoundPrev)
     linesFound = linesFoundAll[0]
     sectionTitleList = linesFoundAll[1]
