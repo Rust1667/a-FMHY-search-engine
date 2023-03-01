@@ -11,9 +11,7 @@ except:
 
 
 def splitSentenceIntoWords(searchInput):
-    searchInput = searchInput.lower()
-    searchWords = searchInput.split(' ')
-    return searchWords
+    return searchInput.lower().split(' ')
 
 def getAllLines():
     try:
@@ -34,27 +32,28 @@ def getAllLines():
     return lines
 
 
-def checkQueryContainedExactlyInLine(line, searchQuery):
-    line = line.lower()
-    searchQuery = searchQuery.lower()
-    return (searchQuery in line)
+def checkMultiWordQueryContainedExactlyInLine(line, searchQuery):
+    if len(searchQuery.split(' ')) <= 1: 
+        return False
+    return (searchQuery.lower() in line.lower())
 
 def moveExactMatchesToFront(myList, searchQuery):
     for i in reversed(range(len(myList))):
-        if checkQueryContainedExactlyInLine(myList[i], searchQuery):
+        if checkMultiWordQueryContainedExactlyInLine(myList[i], searchQuery):
             myList.insert(0, myList.pop(i))
     return myList
 
-def checkElements(list1, list2):
+def checkList1isInList2(list1, list2):
     for element in list1:
         if element not in list2:
             return False
     return True
 
+#import re
 def checkWordForWordMatch(line, searchQuery):
-    lineSplitInWords = splitSentenceIntoWords(line)
-    searchQueryWords = splitSentenceIntoWords(searchQuery)
-    return checkElements(searchQueryWords, lineSplitInWords)
+    lineWords = line.lower().split(' ')#re.split(' |[|]', line.lower())
+    searchQueryWords = searchQuery.lower().split(' ')
+    return checkList1isInList2(searchQueryWords, lineWords)
 
 def moveBetterMatchesToFront(myList, searchQuery):
     for i in reversed(range(len(myList))):
