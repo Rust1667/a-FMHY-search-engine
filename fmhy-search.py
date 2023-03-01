@@ -99,21 +99,20 @@ def highlightWord(sentence, word):
     return sentence.replace(word, colored(word,'red'))
 
 def colorLinesFound(linesFound, filterWords):
-
-    filterWordsCapitalizedToo=[]
+    filterWordsCapitalized=[]
     for word in filterWords:
-        filterWordsCapitalizedToo.append(word.capitalize())
-    filterWordsCapitalizedToo.extend(filterWords)
+        filterWordsCapitalized.append(word.capitalize())
     
     filterWordsAllCaps=[]
     for word in filterWords:
         filterWordsAllCaps.append(word.upper())
-    filterWordsCapitalizedToo.extend(filterWordsAllCaps)
 
+    filterWordsIncludingCaps = filterWords + filterWordsCapitalized + filterWordsAllCaps
     coloredLinesList = []
     for line in linesFound:
-        for word in filterWordsCapitalizedToo:
-            coloredLine = highlightWord(line, word)
+        for word in filterWordsIncludingCaps:
+            line = highlightWord(line, word)
+        coloredLine = line
         coloredLinesList.append(coloredLine)
     return coloredLinesList
 
