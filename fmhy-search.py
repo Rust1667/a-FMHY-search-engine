@@ -36,10 +36,14 @@ def checkMultiWordQueryContainedExactlyInLine(line, searchQuery):
     return (searchQuery.lower() in line.lower())
 
 def moveExactMatchesToFront(myList, searchQuery):
-    for i in reversed(range(len(myList))):
+    bumped = []
+    notBumped = []
+    for i in range(len(myList)):
         if checkMultiWordQueryContainedExactlyInLine(myList[i], searchQuery):
-            myList.insert(0, myList.pop(i))
-    return myList
+            bumped.append(myList[i])
+        else:
+            notBumped.append(myList[i])
+    return (bumped + notBumped)
 
 def checkList1isInList2(list1, list2):
     for element in list1:
@@ -53,16 +57,24 @@ def checkWordForWordMatch(line, searchQuery):
     return checkList1isInList2(searchQueryWords, lineWords)
 
 def moveBetterMatchesToFront(myList, searchQuery):
-    for i in reversed(range(len(myList))):
+    bumped = []
+    notBumped = []
+    for i in range(len(myList)):
         if checkWordForWordMatch(myList[i], searchQuery):
-            myList.insert(0, myList.pop(i))
-    return myList
+            bumped.append(myList[i])
+        else:
+            notBumped.append(myList[i])
+    return (bumped + notBumped)
+
 
 def filterLines(lineList, searchQuery):
     filterWords = searchQuery.lower().split(' ')
+
+    #Get only the lines that contain all the filter words
     lineListFiltered = [sentence for sentence in lineList if all(
         w.lower() in sentence.lower() for w in filterWords
     )]
+
     return lineListFiltered
 
 def filterOutTitleLines(lineList):
@@ -111,7 +123,7 @@ def doASearch():
     #main results
     myLineList = lineList
     linesFoundPrev = filterLines(myLineList, searchInput)
-    #linesFoundPrev = moveExactMatchesToFront(linesFoundPrev, searchInput)
+    linesFoundPrev = moveExactMatchesToFront(linesFoundPrev, searchInput)
     linesFoundPrev = moveBetterMatchesToFront(linesFoundPrev, searchInput)
     linesFoundAll = filterOutTitleLines(linesFoundPrev)
     linesFound = linesFoundAll[0]
