@@ -66,6 +66,12 @@ def moveBetterMatchesToFront(myList, searchQuery):
             notBumped.append(myList[i])
     return (bumped + notBumped)
 
+def getOnlyFullWordMatches(myList, searchQuery):
+    bumped = []
+    for i in range(len(myList)):
+        if checkWordForWordMatch(myList[i], searchQuery):
+            bumped.append(myList[i])
+    return bumped
 
 def filterLines(lineList, searchQuery):
     filterWords = searchQuery.lower().split(' ')
@@ -74,6 +80,9 @@ def filterLines(lineList, searchQuery):
     lineListFiltered = [sentence for sentence in lineList if all(
         w.lower() in sentence.lower() for w in filterWords
     )]
+
+    if len(lineListFiltered)>50:
+        lineListFiltered = getOnlyFullWordMatches(lineListFiltered, searchQuery)
 
     return lineListFiltered
 
