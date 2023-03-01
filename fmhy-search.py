@@ -10,8 +10,6 @@ except:
     coloring = False
 
 
-def splitSentenceIntoWords(searchInput):
-    return searchInput.lower().split(' ')
 
 def getAllLines():
     try:
@@ -61,7 +59,7 @@ def moveBetterMatchesToFront(myList, searchQuery):
     return myList
 
 def filterLines(lineList, searchQuery):
-    filterWords = splitSentenceIntoWords(searchQuery)
+    filterWords = searchQuery.lower().split(' ')
     lineListFiltered = [sentence for sentence in lineList if all(
         w.lower() in sentence.lower() for w in filterWords
     )]
@@ -106,14 +104,14 @@ def doASearch():
         return
 
     #intro to the search results
-    myFilterWords = splitSentenceIntoWords(searchInput)
+    myFilterWords = searchInput.lower().split(' ')
     print("Looking for lines that contain all of these words:")
     print(myFilterWords)
 
     #main results
     myLineList = lineList
     linesFoundPrev = filterLines(myLineList, searchInput)
-    linesFoundPrev = moveExactMatchesToFront(linesFoundPrev, searchInput)
+    #linesFoundPrev = moveExactMatchesToFront(linesFoundPrev, searchInput)
     linesFoundPrev = moveBetterMatchesToFront(linesFoundPrev, searchInput)
     linesFoundAll = filterOutTitleLines(linesFoundPrev)
     linesFound = linesFoundAll[0]
