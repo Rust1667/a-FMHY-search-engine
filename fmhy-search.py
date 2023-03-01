@@ -16,21 +16,46 @@ def splitSentenceIntoWords(searchInput):
     return searchWords
 
 def getAllLines():
-    print("Loading FMHY single-page file from Github...")
-    response1 = requests.get("https://raw.githubusercontent.com/nbats/FMHYedit/main/single-page")
-    print("Loaded.\n")
+    try:
+        #First, try to get it from the local single-page file
+        print("Loading FMHY from local single-page...")
+        with open('single-page', 'r') as f:
+            data = f.read()
+        print("Loaded.\n")
+    except:
+        print("Local single-page file not found.")
+        #If that fails, try to get it from Github
+        print("Loading FMHY single-page file from Github...")
+        response1 = requests.get("https://raw.githubusercontent.com/nbats/FMHYedit/main/single-page")
+        print("Loaded.\n")
+        data = response1.text
 
-    data = response1.text
     lines = data.split('\n')
     return lines
 
-def filterLines(lineList, filterWords):
-    sentences = lineList
-    words = filterWords
-    sentence = [sentence for sentence in sentences if all(
-        w.lower() in sentence.lower() for w in words
+def checkElements(list1, list2):
+    for element in list1:
+        if element not in list2:
+            return False
+    return True
+
+def checkWordForWordMatch(line, searchQuery):
+    lineSplitInWords = splitSentenceIntoWords(line)
+    searchQueryWords = splitSentenceIntoWords(searchQuery)
+    return checkElements(searchQueryWords, lineSplitInWords)
+
+def moveBetterMatchesToFront(myList, searchQuery):
+    for i in range(len(myList)):
+        if checkWordForWordMatch(myList[i], searchQuery):
+            myList.insert(0, myList.pop(i))
+    return myList
+
+def filterLines(lineList, searchQuery):
+    filterWords = splitSentenceIntoWords(searchQuery)
+    lineListFiltered = [sentence for sentence in lineList if all(
+        w.lower() in sentence.lower() for w in filterWords
     )]
-    return sentence
+    return lineListFiltered
 
 def filterOutTitleLines(lineList):
     filteredList = []
@@ -77,7 +102,8 @@ def doASearch():
 
     #main results
     myLineList = lineList
-    linesFoundPrev = filterLines(lineList=myLineList, filterWords=myFilterWords)
+    linesFoundPrev = filterLines(myLineList, searchInput)
+    linesFoundPrev = moveBetterMatchesToFront(linesFoundPrev, searchInput)
     linesFoundAll = filterOutTitleLines(linesFoundPrev)
     linesFound = linesFoundAll[0]
     sectionTitleList = linesFoundAll[1]
