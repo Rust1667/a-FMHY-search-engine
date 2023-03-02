@@ -10,6 +10,63 @@ except:
     coloring = False
 
 
+#----------------Alt Indexing------------
+doAltIndexing = False
+
+def addPretext(lines, preText):
+    for i in range(len(lines)):
+        lines[i] = preText + lines[i]
+    return lines
+
+def dlWikiChunk(fileName, icon, subURL):
+    #first, try to get the chunk locally
+    try:
+        #First, try to get it from the local file
+        print("Loading " + fileName + " from local file...")
+        with open(fileName, 'r') as f:
+            data = f.read()
+        print("Loaded.\n")
+        lines = data.split('\n')
+    #if not available locally, download the chunk from github
+    except:
+        print("Downloading " + fileName + "...")
+        lines = requests.get("https://raw.githubusercontent.com/nbats/FMHYedit/main/" + fileName).text.split('\n')
+        print("Downloaded")
+
+    #add a pretext
+    if not fileName=="NSFWPiracy.md":
+        preText = "[" + icon + "](" + "https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/" + subURL + ") "
+    else:
+        preText = "[" + icon + "](" + subURL + ") "
+    preText = icon + " "
+    lines = addPretext(lines, preText)
+    
+    return lines
+
+def alternativeWikiIndexing():
+    wikiChunks = [
+        dlWikiChunk("VideoPiracyGuide.md", "📺", "video"),
+        dlWikiChunk("AndroidPiracyGuide.md", "📱", "android"),
+        dlWikiChunk("AudioPiracyGuide.md", "🎵", "audio"),
+        dlWikiChunk("DownloadPiracyGuide.md", "💾", "download"),
+        dlWikiChunk("EDUPiracyGuide.md", "🧠", "edu"),
+        dlWikiChunk("GamingPiracyGuide.md", "🎮", "games"),
+        dlWikiChunk("Game-Tools.md", "🎮🔧", "game-tools"),
+        dlWikiChunk("AdblockVPNGuide.md", "📛", "adblock-vpn-privacy"),
+        dlWikiChunk("TOOLSGuide.md", "🔧", "tools-misc"),
+        dlWikiChunk("MISCGuide.md", "📂", "misc"),
+        dlWikiChunk("ReadingPiracyGuide.md", "📗", "reading"),
+        dlWikiChunk("TorrentPiracyGuide.md", "🌀", "torrent"),
+        dlWikiChunk("img-tools.md", "🖼️🔧", "img-tools"),
+        dlWikiChunk("LinuxGuide.md", "🐧🍏", "linux"),
+        dlWikiChunk("DEVTools.md", "🖥️", "dev-tools"),
+        dlWikiChunk("Non-English.md", "🌏", "non-eng"),
+        dlWikiChunk("STORAGE.md", "🗄️", "storage"),
+        dlWikiChunk("NSFWPiracy.md", "🌶", "https://saidit.net/s/freemediafuckyeah/wiki/index")
+    ]
+    return [item for sublist in wikiChunks for item in sublist]
+#--------------------------------
+
 
 def standardWikiIndexing():
     try:
@@ -29,7 +86,13 @@ def standardWikiIndexing():
     return lines
 
 def getAllLines():
-    lines = standardWikiIndexing()
+    if doAltIndexing:
+        try:
+            lines = alternativeWikiIndexing()
+        except:
+            lines = standardWikiIndexing()
+    else:
+        lines = standardWikiIndexing()
     return lines
 
 
@@ -144,16 +207,21 @@ def doASearch():
         print("Too many results (" + str(len(linesFoundPrev)) + "). Showing only full-word matches.")
         linesFoundPrev = getOnlyFullWordMatches(linesFoundPrev, searchInput)
 
-    linesFoundPrev = moveExactMatchesToFront(linesFoundPrev, searchInput)
+    #rank results
+    #linesFoundPrev = moveExactMatchesToFront(linesFoundPrev, searchInput)
     linesFoundPrev = moveBetterMatchesToFront(linesFoundPrev, searchInput)
+
+    #separate title lines
     linesFoundAll = filterOutTitleLines(linesFoundPrev)
     linesFound = linesFoundAll[0]
     sectionTitleList = linesFoundAll[1]
+
     if coloring == True:
         linesFoundColored = colorLinesFound(linesFound, myFilterWords)
         textToPrint = "\n\n".join(linesFoundColored)
     else:
         textToPrint = "\n\n".join(linesFound)
+
     print("Printing " + str(len(linesFound)) + " search results:\n")
     print(textToPrint)
     print("\nSearch ended with " + str(len(linesFound)) + " results found.\n")
