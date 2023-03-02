@@ -11,7 +11,7 @@ except:
 
 
 #----------------Alt Indexing------------
-doAltIndexing = True
+doAltIndexing = False
 
 def addPretext(lines, preText):
     for i in range(len(lines)):
