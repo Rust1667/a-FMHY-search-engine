@@ -11,7 +11,7 @@ except:
 
 
 
-def getAllLines():
+def standardWikiIndexing():
     try:
         #First, try to get it from the local single-page file
         print("Loading FMHY from local single-page...")
@@ -25,9 +25,13 @@ def getAllLines():
         response1 = requests.get("https://raw.githubusercontent.com/nbats/FMHYedit/main/single-page")
         print("Loaded.\n")
         data = response1.text
-
     lines = data.split('\n')
     return lines
+
+def getAllLines():
+    lines = standardWikiIndexing()
+    return lines
+
 
 
 def checkMultiWordQueryContainedExactlyInLine(line, searchQuery):
