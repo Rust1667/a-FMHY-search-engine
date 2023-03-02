@@ -11,7 +11,7 @@ except:
 
 
 #----------------Alt Indexing------------
-doAltIndexing = False
+doAltIndexing = True
 
 def addPretext(lines, preText):
     for i in range(len(lines)):
@@ -42,6 +42,9 @@ def dlWikiChunk(fileName, icon, subURL):
     lines = addPretext(lines, preText)
     
     return lines
+
+def cleanLineForSearchMatchChecks(line):
+    return line.replace('https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/', '/')
 
 def alternativeWikiIndexing():
     wikiChunks = [
@@ -140,11 +143,19 @@ def getOnlyFullWordMatches(myList, searchQuery):
             bumped.append(myList[i])
     return bumped
 
-def getLinesThatContainAllWords(lineList, filterWords):
-    lineListFiltered = [line for line in lineList if all(
-        word.lower() in line.lower() for word in filterWords
-    )]
-    return lineListFiltered
+def getLinesThatContainAllWords(lineList, words):
+    bumped = []
+    for line in lineList:
+        if doAltIndexing:
+            lineModdedForChecking = cleanLineForSearchMatchChecks(line).lower()
+        else:
+            lineModdedForChecking = line.lower()
+        for word in words:
+            if word not in lineModdedForChecking:
+                break
+        else:
+            bumped.append(line)
+    return bumped
 
 def filterLines(lineList, searchQuery):
     filterWords = searchQuery.lower().split(' ')
@@ -203,7 +214,7 @@ def doASearch():
     myLineList = lineList
     linesFoundPrev = filterLines(myLineList, searchInput)
 
-    if len(linesFoundPrev)>50:
+    if len(linesFoundPrev)>200:
         print("Too many results (" + str(len(linesFoundPrev)) + "). Showing only full-word matches.")
         linesFoundPrev = getOnlyFullWordMatches(linesFoundPrev, searchInput)
 
@@ -230,7 +241,7 @@ def doASearch():
     if len(sectionTitleList)>0:
         print("Also there are these section titles: ")
         print("\n".join(sectionTitleList))
-    
+
     #repeat the search
     print("\n\n\n")   
     doASearch()
