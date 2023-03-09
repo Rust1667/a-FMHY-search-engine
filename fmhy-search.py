@@ -11,7 +11,7 @@ except:
 
 
 #----------------Alt Indexing------------
-doAltIndexing = False
+doAltIndexing = True
 
 def addPretext(lines, preText):
     for i in range(len(lines)):
@@ -49,7 +49,7 @@ def cleanLineForSearchMatchChecks(line):
 def alternativeWikiIndexing():
     wikiChunks = [
         dlWikiChunk("VideoPiracyGuide.md", "📺", "video"),
-        dlWikiChunk("AndroidPiracyGuide.md", "📱", "android"),
+        dlWikiChunk("Android-iOSGuide.md", "📱", "android"),
         dlWikiChunk("AudioPiracyGuide.md", "🎵", "audio"),
         dlWikiChunk("DownloadPiracyGuide.md", "💾", "download"),
         dlWikiChunk("EDUPiracyGuide.md", "🧠", "edu"),
