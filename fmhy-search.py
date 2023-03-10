@@ -29,7 +29,7 @@ def dlWikiChunk(fileName, icon, subURL):
         lines = data.split('\n')
     #if not available locally, download the chunk from github
     except:
-        print("Downloading " + fileName + "...")
+        print("Local file not found. Downloading " + fileName + "from Github...")
         lines = requests.get("https://raw.githubusercontent.com/nbats/FMHYedit/main/" + fileName).text.split('\n')
         print("Downloaded")
 
