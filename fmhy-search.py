@@ -214,7 +214,7 @@ def doASearch():
     myLineList = lineList
     linesFoundPrev = filterLines(myLineList, searchInput)
 
-    if len(linesFoundPrev)>200:
+    if len(linesFoundPrev) > 300:
         print("Too many results (" + str(len(linesFoundPrev)) + "). Showing only full-word matches.")
         linesFoundPrev = getOnlyFullWordMatches(linesFoundPrev, searchInput)
 
