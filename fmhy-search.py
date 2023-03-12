@@ -98,7 +98,8 @@ def getAllLines():
         lines = standardWikiIndexing()
     return lines
 
-
+def removeEmptyStringsFromList(stringList):
+    return [string for string in stringList if string != '']
 
 def checkMultiWordQueryContainedExactlyInLine(line, searchQuery):
     if len(searchQuery.split(' ')) <= 1: 
@@ -158,7 +159,7 @@ def getLinesThatContainAllWords(lineList, words):
     return bumped
 
 def filterLines(lineList, searchQuery):
-    filterWords = searchQuery.lower().split(' ')
+    filterWords = removeEmptyStringsFromList( searchQuery.lower().split(' ') )
     lineListFiltered = getLinesThatContainAllWords(lineList, filterWords)
     return lineListFiltered
 
@@ -203,7 +204,7 @@ def doASearch(searchInput):
         return
 
     #intro to the search results
-    myFilterWords = searchInput.lower().split(' ')
+    myFilterWords = removeEmptyStringsFromList( searchInput.lower().split(' ') )
     print("Looking for lines that contain all of these words:")
     print(myFilterWords)
 
