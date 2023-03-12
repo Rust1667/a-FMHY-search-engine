@@ -195,10 +195,7 @@ def colorLinesFound(linesFound, filterWords):
     return coloredLinesList
 
 
-def doASearch():
-    #intro
-    print("STARTING NEW SEARCH...\n")
-    searchInput = input("Type a search string:     ")
+def doASearch(searchInput):
 
     #make sure the input is right before continuing
     if searchInput == "exit" or searchInput == "":
@@ -242,10 +239,17 @@ def doASearch():
         print("Also there are these section titles: ")
         print("\n".join(sectionTitleList))
 
-    #repeat the search
-    print("\n\n\n")   
-    doASearch()
+
+
+def searchLoop():
+    print("STARTING NEW SEARCH...\n")
+    searchInput = input("Type a search string:     ")
+    doASearch(searchInput)
+    print("\n\n\n")
+    searchLoop()
+
+
 
 lineList = getAllLines()
 print("Search examples: 'youtube frontend', 'streaming site', 'rare movies', 'userscripts'... You can also type 'exit' or nothing to close the script.\n")
-doASearch()
+searchLoop()
