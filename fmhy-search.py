@@ -123,8 +123,13 @@ def checkList1isInList2(list1, list2):
     return True
 
 def checkWordForWordMatch(line, searchQuery):
-    lineWords = line.lower().replace('[', ' ').replace(']', ' ').split(' ')
-    searchQueryWords = searchQuery.lower().split(' ')
+    lineWords = removeEmptyStringsFromList( line.lower().replace('[', ' ').replace(']', ' ').split(' ') )
+    searchQueryWords = removeEmptyStringsFromList( searchQuery.lower().split(' ') )
+    return checkList1isInList2(searchQueryWords, lineWords)
+
+def checkWordForWordMatchCaseSensitive(line, searchQuery):
+    lineWords = removeEmptyStringsFromList( line.replace('[', ' ').replace(']', ' ').split(' ') )
+    searchQueryWords = removeEmptyStringsFromList( searchQuery.split(' ') )
     return checkList1isInList2(searchQueryWords, lineWords)
 
 def moveBetterMatchesToFront(myList, searchQuery):
@@ -144,7 +149,15 @@ def getOnlyFullWordMatches(myList, searchQuery):
             bumped.append(myList[i])
     return bumped
 
-def getLinesThatContainAllWords(lineList, words):
+def getOnlyFullWordMatchesCaseSensitive(myList, searchQuery):
+    bumped = []
+    for i in range(len(myList)):
+        if checkWordForWordMatchCaseSensitive(myList[i], searchQuery):
+            bumped.append(myList[i])
+    return bumped
+
+def getLinesThatContainAllWords(lineList, searchQuery):
+    words = removeEmptyStringsFromList( searchQuery.lower().split(' ') )
     bumped = []
     for line in lineList:
         if doAltIndexing:
@@ -159,9 +172,10 @@ def getLinesThatContainAllWords(lineList, words):
     return bumped
 
 def filterLines(lineList, searchQuery):
-    filterWords = removeEmptyStringsFromList( searchQuery.lower().split(' ') )
-    lineListFiltered = getLinesThatContainAllWords(lineList, filterWords)
-    return lineListFiltered
+    if len(searchQuery)<=2:
+        return getOnlyFullWordMatches(lineList, searchQuery)
+    else:
+        return getLinesThatContainAllWords(lineList, searchQuery)
 
 def filterOutTitleLines(lineList):
     filteredList = []
