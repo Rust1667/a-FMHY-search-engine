@@ -261,7 +261,7 @@ def doASearch(searchInput):
 def searchLoop():
     print("STARTING NEW SEARCH...\n")
     searchInput = input("Type a search string:     ")
-    doASearch(searchInput)
+    doASearch(searchInput.strip())
     print("\n\n\n")
     searchLoop()
 
