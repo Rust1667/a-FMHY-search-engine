@@ -124,11 +124,13 @@ def checkList1isInList2(list1, list2):
 
 def checkWordForWordMatch(line, searchQuery):
     lineWords = removeEmptyStringsFromList( line.lower().replace('[', ' ').replace(']', ' ').split(' ') )
+    lineWords = [element.strip() for element in lineWords] #doesnt work on streamlit without this line even though it works locally
     searchQueryWords = removeEmptyStringsFromList( searchQuery.lower().split(' ') )
     return checkList1isInList2(searchQueryWords, lineWords)
 
 def checkWordForWordMatchCaseSensitive(line, searchQuery):
     lineWords = removeEmptyStringsFromList( line.replace('[', ' ').replace(']', ' ').split(' ') )
+    lineWords = [element.strip() for element in lineWords] #doesnt work on streamlit without this line even though it works locally
     searchQueryWords = removeEmptyStringsFromList( searchQuery.split(' ') )
     return checkList1isInList2(searchQueryWords, lineWords)
 
