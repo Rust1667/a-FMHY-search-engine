@@ -109,11 +109,11 @@ def checkMultiWordQueryContainedExactlyInLine(line, searchQuery):
 def moveExactMatchesToFront(myList, searchQuery):
     bumped = []
     notBumped = []
-    for i in range(len(myList)):
-        if checkMultiWordQueryContainedExactlyInLine(myList[i], searchQuery):
-            bumped.append(myList[i])
+    for element in myList:
+        if checkMultiWordQueryContainedExactlyInLine(element, searchQuery):
+            bumped.append(element)
         else:
-            notBumped.append(myList[i])
+            notBumped.append(element)
     return (bumped + notBumped)
 
 def checkList1isInList2(list1, list2):
@@ -135,25 +135,25 @@ def checkWordForWordMatchCaseSensitive(line, searchQuery):
 def moveBetterMatchesToFront(myList, searchQuery):
     bumped = []
     notBumped = []
-    for i in range(len(myList)):
-        if checkWordForWordMatch(myList[i], searchQuery):
-            bumped.append(myList[i])
+    for element in myList:
+        if checkWordForWordMatch(element, searchQuery):
+            bumped.append(element)
         else:
-            notBumped.append(myList[i])
+            notBumped.append(element)
     return (bumped + notBumped)
 
 def getOnlyFullWordMatches(myList, searchQuery):
     bumped = []
-    for i in range(len(myList)):
-        if checkWordForWordMatch(myList[i], searchQuery):
-            bumped.append(myList[i])
+    for element in myList:
+        if checkWordForWordMatch(element, searchQuery):
+            bumped.append(element)
     return bumped
 
 def getOnlyFullWordMatchesCaseSensitive(myList, searchQuery):
     bumped = []
-    for i in range(len(myList)):
-        if checkWordForWordMatchCaseSensitive(myList[i], searchQuery):
-            bumped.append(myList[i])
+    for element in myList:
+        if checkWordForWordMatchCaseSensitive(element, searchQuery):
+            bumped.append(element)
     return bumped
 
 def getLinesThatContainAllWords(lineList, searchQuery):
