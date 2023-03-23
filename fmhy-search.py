@@ -57,6 +57,7 @@ def alternativeWikiIndexing():
         dlWikiChunk("Game-Tools.md", "🎮🔧", "game-tools"),
         dlWikiChunk("AdblockVPNGuide.md", "📛", "adblock-vpn-privacy"),
         dlWikiChunk("TOOLSGuide.md", "🔧", "tools-misc"),
+        dlWikiChunk("AI.md", "🤖", "ai"),
         dlWikiChunk("MISCGuide.md", "📂", "misc"),
         dlWikiChunk("ReadingPiracyGuide.md", "📗", "reading"),
         dlWikiChunk("TorrentPiracyGuide.md", "🌀", "torrent"),
