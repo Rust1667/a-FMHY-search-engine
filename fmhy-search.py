@@ -60,7 +60,7 @@ def alternativeWikiIndexing():
         dlWikiChunk("MISCGuide.md", "📂", "misc"),
         dlWikiChunk("ReadingPiracyGuide.md", "📗", "reading"),
         dlWikiChunk("TorrentPiracyGuide.md", "🌀", "torrent"),
-        dlWikiChunk("img-tools.md", "🖼️🔧", "img-tools"),
+        dlWikiChunk("img-tools.md", "📷", "img-tools"),
         dlWikiChunk("LinuxGuide.md", "🐧🍏", "linux"),
         dlWikiChunk("DEVTools.md", "🖥️", "dev-tools"),
         dlWikiChunk("Non-English.md", "🌏", "non-eng"),
