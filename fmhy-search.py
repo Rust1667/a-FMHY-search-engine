@@ -11,7 +11,7 @@ except:
 
 
 #----------------Alt Indexing------------
-doAltIndexing = True
+doAltIndexing = False
 
 def addPretext(lines, preText):
     for i in range(len(lines)):
@@ -235,6 +235,9 @@ def doASearch(searchInput):
     #rank results
     #linesFoundPrev = moveExactMatchesToFront(linesFoundPrev, searchInput)
     linesFoundPrev = moveBetterMatchesToFront(linesFoundPrev, searchInput)
+
+    #reverse list for terminal
+    linesFoundPrev.reverse()
 
     #separate title lines
     linesFoundAll = filterOutTitleLines(linesFoundPrev)
