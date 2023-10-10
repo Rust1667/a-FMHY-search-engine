@@ -11,20 +11,25 @@ except:
 
 
 #----------------Alt Indexing------------
-doAltIndexing = False
+doAltIndexing = True
 
 def addPretext(lines, icon, baseURL, subURL):
     modified_lines = []
-    curSubCategory = ""
+    currMdSubheading = ""
+    currSubCat = ""
+    currSubSubCat = ""
     for line in lines:
         if line.startswith("# ►"):
-            curSubCategory = "#" + line.replace("# ►", "").strip().replace(" ", "-").lower()
-        elif line.startswith("## ▷"):
-            curSubCategory = "#" + line.replace("## ▷", "").strip().replace(" ", "-").lower()
-        elif line.startswith("#### ") and subURL=="storage":
-            curSubCategory = "#" + line.replace("#### ", "").strip().replace(" ", "-").lower()        
+            currMdSubheading = "#" + line.replace("# ►", "").strip().replace(" ", "-").lower()
+            currSubCat = "/" + line.replace("# ►", "").strip().replace(" ", "-")
+        if line.startswith("## ▷"):
+            currMdSubheading = "#" + line.replace("## ▷", "").strip().replace(" ", "-").lower()
+            currSubSubCat = "/" + line.replace("## ▷", "").strip().replace(" ", "-")
+        if subURL=="storage" and line.startswith("#### "):
+            currMdSubheading = "#" + line.replace("#### ", "").strip().replace(" ", "-").lower()
+            currSubCat = "/" + line.replace("#### ", "").strip().replace(" ", "-")   
 
-        preText = "[" + icon + "](" + baseURL + subURL + curSubCategory + ") "
+        preText = f"[{icon}{currSubCat}{currSubSubCat}]({baseURL}{subURL}{currMdSubheading}) "
 
         if any(char.isalpha() for char in line):
             modified_line = preText + line
