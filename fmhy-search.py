@@ -19,14 +19,18 @@ def addPretext(lines, icon, baseURL, subURL):
     for line in lines:
         if line.startswith("# ►"):
             curSubCategory = "#" + line.replace("# ►", "").strip().replace(" ", "-").lower()
-        if line.startswith("## ▷"):
+        elif line.startswith("## ▷"):
             curSubCategory = "#" + line.replace("## ▷", "").strip().replace(" ", "-").lower()
-        if line.startswith("#### ") and subURL=="storage":
-            curSubCategory = "#" + line.replace("#### ", "").strip().replace(" ", "-").lower()
-        
+        elif line.startswith("#### ") and subURL=="storage":
+            curSubCategory = "#" + line.replace("#### ", "").strip().replace(" ", "-").lower()        
+
         preText = "[" + icon + "](" + baseURL + subURL + curSubCategory + ") "
 
-        modified_line = preText + line
+        if any(char.isalpha() for char in line):
+            modified_line = preText + line
+        else:
+            modified_line = line
+
         modified_lines.append(modified_line)
     return modified_lines
 
