@@ -20,15 +20,15 @@ def addPretext(lines, icon, baseURL, subURL):
     currSubSubCat = ""
     for line in lines:
         if line.startswith("# ►"):
-            currMdSubheading = "#" + line.replace("# ►", "").strip().replace(" ", "-").lower()
+            currMdSubheading = "#" + line.replace("# ►", "").strip().replace(" / ", "--").replace(" ", "-").lower()
             currSubCat = "/" + line.replace("# ►", "").strip().replace(" ", "-")
             currSubSubCat = ""
         if line.startswith("## ▷"):
             if not subURL=="non-english":
-                currMdSubheading = "#" + line.replace("## ▷", "").strip().replace(" ", "-").lower()
+                currMdSubheading = "#" + line.replace("## ▷", "").strip().replace(" / ", "--").replace(" ", "-").lower()
             currSubSubCat = "/" + line.replace("## ▷", "").strip().replace(" ", "-")
         if subURL=="storage" and line.startswith("#### "):
-            currMdSubheading = "#" + line.replace("#### ", "").strip().replace(" ", "-").lower()
+            currMdSubheading = "#" + line.replace("#### ", "").strip().replace(" / ", "--").replace(" ", "-").lower()
             currSubCat = "/" + line.replace("#### ", "").strip().replace(" ", "-")   
 
         if 'http' in currSubCat: currSubCat = ''
