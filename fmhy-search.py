@@ -24,7 +24,8 @@ def addPretext(lines, icon, baseURL, subURL):
             currSubCat = "/" + line.replace("# ►", "").strip().replace(" ", "-")
             currSubSubCat = ""
         if line.startswith("## ▷"):
-            currMdSubheading = "#" + line.replace("## ▷", "").strip().replace(" ", "-").lower()
+            if not subURL=="non-english":
+                currMdSubheading = "#" + line.replace("## ▷", "").strip().replace(" ", "-").lower()
             currSubSubCat = "/" + line.replace("## ▷", "").strip().replace(" ", "-")
         if subURL=="storage" and line.startswith("#### "):
             currMdSubheading = "#" + line.replace("#### ", "").strip().replace(" ", "-").lower()
