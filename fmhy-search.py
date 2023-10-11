@@ -22,6 +22,7 @@ def addPretext(lines, icon, baseURL, subURL):
         if line.startswith("# ►"):
             currMdSubheading = "#" + line.replace("# ►", "").strip().replace(" ", "-").lower()
             currSubCat = "/" + line.replace("# ►", "").strip().replace(" ", "-")
+            currSubSubCat = ""
         if line.startswith("## ▷"):
             currMdSubheading = "#" + line.replace("## ▷", "").strip().replace(" ", "-").lower()
             currSubSubCat = "/" + line.replace("## ▷", "").strip().replace(" ", "-")
