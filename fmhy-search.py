@@ -29,6 +29,9 @@ def addPretext(lines, icon, baseURL, subURL):
             currMdSubheading = "#" + line.replace("#### ", "").strip().replace(" ", "-").lower()
             currSubCat = "/" + line.replace("#### ", "").strip().replace(" ", "-")   
 
+        if 'http' in currSubCat: currSubCat = ''
+        if 'http' in currSubSubCat: currSubSubCat = ''
+
         preText = f"[{icon}{currSubCat}{currSubSubCat}]({baseURL}{subURL}{currMdSubheading}) "
 
         if any(char.isalpha() for char in line):
