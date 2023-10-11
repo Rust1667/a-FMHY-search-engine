@@ -68,7 +68,7 @@ def dlWikiChunk(fileName, icon, redditSubURL):
     return lines
 
 def cleanLineForSearchMatchChecks(line):
-    return line.replace('https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/', '/')
+    return line.replace('https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/', '/').replace('https://fmhy.pages.dev/', '/')
 
 def alternativeWikiIndexing():
     wikiChunks = [
