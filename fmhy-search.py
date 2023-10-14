@@ -18,30 +18,36 @@ def addPretext(lines, icon, baseURL, subURL):
     currMdSubheading = ""
     currSubCat = ""
     currSubSubCat = ""
+
     for line in lines:
-        if line.startswith("# ►"):
-            currMdSubheading = "#" + line.replace("# ►", "").strip().replace(" / ", "--").replace(" ", "-").lower()
-            currSubCat = "/" + line.replace("# ►", "").strip().replace(" ", "-")
-            currSubSubCat = ""
-        if line.startswith("## ▷"):
-            if not subURL=="non-english":
-                currMdSubheading = "#" + line.replace("## ▷", "").strip().replace(" / ", "--").replace(" ", "-").lower()
-            currSubSubCat = "/" + line.replace("## ▷", "").strip().replace(" ", "-")
-        if subURL=="storage" and line.startswith("#### "):
-            currMdSubheading = "#" + line.replace("#### ", "").strip().replace(" / ", "--").replace(" ", "-").lower()
-            currSubCat = "/" + line.replace("#### ", "").strip().replace(" ", "-")   
+        if line.startswith("#"): #Title Lines
+            if not subURL=="storage":
+                if line.startswith("# ►"):
+                    currMdSubheading = "#" + line.replace("# ►", "").strip().replace(" / ", "--").replace(" ", "-").lower()
+                    currSubCat = "/ " + line.replace("# ►", "").strip() + " "
+                    currSubSubCat = ""
+                elif line.startswith("## ▷"):
+                    if not subURL=="non-english": #Because non-eng section has multiple subsubcats with same names
+                        currMdSubheading = "#" + line.replace("## ▷", "").strip().replace(" / ", "--").replace(" ", "-").lower()
+                    currSubSubCat = "/ " + line.replace("## ▷", "").strip() + " "
+            elif subURL=="storage":
+                if line.startswith("# "):
+                    currMdSubheading = "#" + line.replace("# ", "").strip().replace(" / ", "--").replace(" ", "-").lower()
+                    currSubCat = "/ " + line.replace("# ", "").strip() + " "
+                    currSubSubCat = ""
+                elif line.startswith("## "):
+                    currMdSubheading = "#" + line.replace("## ", "").strip().replace(" / ", "--").replace(" ", "-").lower()
+                    currSubSubCat = "/ " + line.replace("## ", "").strip() + " "
 
-        if 'http' in currSubCat: currSubCat = ''
-        if 'http' in currSubSubCat: currSubSubCat = ''
+            # Remove links from subcategory titles (because the screw the format)
+            if 'http' in currSubCat: currSubCat = ''
+            if 'http' in currSubSubCat: currSubSubCat = ''
 
-        preText = f"[{icon}{currSubCat}{currSubSubCat}]({baseURL}{subURL}{currMdSubheading}) "
+        elif any(char.isalpha() for char in line): #If line has content
+            preText = f"[{icon}{currSubCat}{currSubSubCat}]({baseURL}{subURL}{currMdSubheading}) "
+            if subURL=="storage" and not line.startswith("* "): preText += " - " #add separator when there is none
+            modified_lines.append(preText + line)
 
-        if any(char.isalpha() for char in line):
-            modified_line = preText + line
-        else:
-            modified_line = line
-
-        modified_lines.append(modified_line)
     return modified_lines
 
 def dlWikiChunk(fileName, icon, redditSubURL):
@@ -66,7 +72,7 @@ def dlWikiChunk(fileName, icon, redditSubURL):
     pagesDevSiteBaseURL = "https://fmhy.pages.dev/"
     baseURL = pagesDevSiteBaseURL
     lines = addPretext(lines, icon, baseURL, subURL)
-    
+
     return lines
 
 def cleanLineForSearchMatchChecks(line):
@@ -128,7 +134,7 @@ def removeEmptyStringsFromList(stringList):
     return [string for string in stringList if string != '']
 
 def checkMultiWordQueryContainedExactlyInLine(line, searchQuery):
-    if len(searchQuery.split(' ')) <= 1: 
+    if len(searchQuery.split(' ')) <= 1:
         return False
     return (searchQuery.lower() in line.lower())
 
@@ -223,7 +229,7 @@ def colorLinesFound(linesFound, filterWords):
     filterWordsCapitalized=[]
     for word in filterWords:
         filterWordsCapitalized.append(word.capitalize())
-    
+
     filterWordsAllCaps=[]
     for word in filterWords:
         filterWordsAllCaps.append(word.upper())
