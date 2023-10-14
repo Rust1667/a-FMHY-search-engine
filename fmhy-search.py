@@ -31,13 +31,13 @@ def addPretext(lines, icon, baseURL, subURL):
                         currMdSubheading = "#" + line.replace("## ▷", "").strip().replace(" / ", "--").replace(" ", "-").lower()
                     currSubSubCat = "/ " + line.replace("## ▷", "").strip() + " "
             elif subURL=="storage":
-                if line.startswith("# "):
-                    currMdSubheading = "#" + line.replace("# ", "").strip().replace(" / ", "--").replace(" ", "-").lower()
-                    currSubCat = "/ " + line.replace("# ", "").strip() + " "
-                    currSubSubCat = ""
-                elif line.startswith("## "):
+                if line.startswith("## "):
                     currMdSubheading = "#" + line.replace("## ", "").strip().replace(" / ", "--").replace(" ", "-").lower()
-                    currSubSubCat = "/ " + line.replace("## ", "").strip() + " "
+                    currSubCat = "/ " + line.replace("## ", "").strip() + " "
+                    currSubSubCat = ""
+                elif line.startswith("### "):
+                    currMdSubheading = "#" + line.replace("### ", "").strip().replace(" / ", "--").replace(" ", "-").lower()
+                    currSubSubCat = "/ " + line.replace("### ", "").strip() + " "
 
             # Remove links from subcategory titles (because the screw the format)
             if 'http' in currSubCat: currSubCat = ''
