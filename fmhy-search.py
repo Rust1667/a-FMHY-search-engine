@@ -44,8 +44,8 @@ def addPretext(lines, icon, baseURL, subURL):
             if 'http' in currSubSubCat: currSubSubCat = ''
 
         elif any(char.isalpha() for char in line): #If line has content
-            preText = f"[{icon}{currSubCat}{currSubSubCat}]({baseURL}{subURL}{currMdSubheading}) "
-            if subURL=="storage" and not line.startswith("* "): preText += " - " #add separator when there is none
+            preText = f"[{icon}{currSubCat}{currSubSubCat}]({baseURL}{subURL}{currMdSubheading}) ► "
+            if line.startswith("* "): line = line[2:]
             modified_lines.append(preText + line)
 
     return modified_lines
