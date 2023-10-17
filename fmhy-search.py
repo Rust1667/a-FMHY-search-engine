@@ -243,13 +243,12 @@ def colorLinesFound(linesFound, filterWords):
         coloredLinesList.append(coloredLine)
     return coloredLinesList
 
+def addNumberingToStringList(string_list):
+    for i in range(len(string_list)):
+        string_list[i] = f"{i + 1}- {string_list[i]}"
+    return string_list
 
 def doASearch(searchInput):
-
-    #make sure the input is right before continuing
-    if searchInput == "exit" or searchInput == "":
-        print("The script is closing...")
-        return
 
     #intro to the search results
     myFilterWords = removeEmptyStringsFromList( searchInput.lower().split(' ') )
@@ -260,6 +259,7 @@ def doASearch(searchInput):
     myLineList = lineList
     linesFoundPrev = filterLines(myLineList, searchInput)
 
+    #limit result list
     if len(linesFoundPrev) > 300:
         print("Too many results (" + str(len(linesFoundPrev)) + "). Showing only full-word matches.")
         linesFoundPrev = getOnlyFullWordMatches(linesFoundPrev, searchInput)
@@ -268,20 +268,23 @@ def doASearch(searchInput):
     #linesFoundPrev = moveExactMatchesToFront(linesFoundPrev, searchInput)
     linesFoundPrev = moveBetterMatchesToFront(linesFoundPrev, searchInput)
 
-    #reverse list for terminal
-    linesFoundPrev.reverse()
-
     #separate title lines
     linesFoundAll = filterOutTitleLines(linesFoundPrev)
     linesFound = linesFoundAll[0]
+    linesFound = addNumberingToStringList(linesFound)
     sectionTitleList = linesFoundAll[1]
 
+    #reverse list for terminal
+    linesFound.reverse()
+
+    #check for coloring
     if coloring == True:
         linesFoundColored = colorLinesFound(linesFound, myFilterWords)
         textToPrint = "\n\n".join(linesFoundColored)
     else:
         textToPrint = "\n\n".join(linesFound)
 
+    # print main results
     print("Printing " + str(len(linesFound)) + " search results:\n")
     print(textToPrint)
     print("\nSearch ended with " + str(len(linesFound)) + " results found.\n")
@@ -295,7 +298,12 @@ def doASearch(searchInput):
 
 def searchLoop():
     print("STARTING NEW SEARCH...\n")
+
     searchInput = input("Type a search string:     ")
+    if searchInput == "exit" or searchInput == "q" or searchInput == "":
+        print("The script is closing...")
+        return
+
     doASearch(searchInput.strip())
     print("\n\n\n")
     searchLoop()
