@@ -23,20 +23,20 @@ def addPretext(lines, icon, baseURL, subURL):
         if line.startswith("#"): #Title Lines
             if not subURL=="storage":
                 if line.startswith("# ►"):
-                    currMdSubheading = "#" + line.replace("# ►", "").strip().replace(" / ", "--").replace(" ", "-").lower()
+                    currMdSubheading = "#" + line.replace("# ►", "").strip().replace(" / ", "-").replace(" ", "-").lower()
                     currSubCat = "/ " + line.replace("# ►", "").strip() + " "
                     currSubSubCat = ""
                 elif line.startswith("## ▷"):
                     if not subURL=="non-english": #Because non-eng section has multiple subsubcats with same names
-                        currMdSubheading = "#" + line.replace("## ▷", "").strip().replace(" / ", "--").replace(" ", "-").lower()
+                        currMdSubheading = "#" + line.replace("## ▷", "").strip().replace(" / ", "-").replace(" ", "-").lower()
                     currSubSubCat = "/ " + line.replace("## ▷", "").strip() + " "
             elif subURL=="storage":
                 if line.startswith("## "):
-                    currMdSubheading = "#" + line.replace("## ", "").strip().replace(" / ", "--").replace(" ", "-").lower()
+                    currMdSubheading = "#" + line.replace("## ", "").strip().replace(" / ", "-").replace(" ", "-").lower()
                     currSubCat = "/ " + line.replace("## ", "").strip() + " "
                     currSubSubCat = ""
                 elif line.startswith("### "):
-                    currMdSubheading = "#" + line.replace("### ", "").strip().replace(" / ", "--").replace(" ", "-").lower()
+                    currMdSubheading = "#" + line.replace("### ", "").strip().replace(" / ", "-").replace(" ", "-").lower()
                     currSubSubCat = "/ " + line.replace("### ", "").strip() + " "
 
             # Remove links from subcategory titles (because the screw the format)
