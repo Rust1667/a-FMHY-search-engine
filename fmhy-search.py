@@ -50,28 +50,74 @@ def addPretext(lines, icon, baseURL, subURL):
 
     return modified_lines
 
+
+#----------------base64 page processing------------
+import base64
+import re
+
+doBase64Decoding = True
+
+def fix_base64_string(encoded_string):
+    missing_padding = len(encoded_string) % 4
+    if missing_padding != 0:
+        encoded_string += '=' * (4 - missing_padding)
+    return encoded_string
+
+def decode_base64_in_backticks(input_string):
+    def base64_decode(match):
+        encoded_data = match.group(0)[1:-1]  # Extract content within backticks
+        decoded_bytes = base64.b64decode( fix_base64_string(encoded_data) )
+        return decoded_bytes.decode()
+
+    pattern = r"`[^`]+`"  # Regex pattern to find substrings within backticks
+    decoded_string = re.sub(pattern, base64_decode, input_string)
+    return decoded_string
+
+def remove_empty_lines(text):
+    lines = text.split('\n')  # Split the text into lines
+    non_empty_lines = [line for line in lines if line.strip()]  # Filter out empty lines
+    return '\n'.join(non_empty_lines)  # Join non-empty lines back together
+
+def extract_base64_sections(base64_page):
+    sections = base64_page.split("***")  # Split the input string by "***" to get sections
+    formatted_sections = []
+    for section in sections:
+        formatted_section = remove_empty_lines( section.strip().replace("#### ", "").replace("\n\n", " - ").replace("\n", ", ") )
+        if doBase64Decoding: formatted_section = decode_base64_in_backticks(formatted_section)
+        formatted_section = '[🔑Base64](https://fmhy.pages.dev/base64) ► ' + formatted_section
+        formatted_sections.append(formatted_section)
+    lines = formatted_sections
+    return lines
+#----------------</end>base64 page processing------------
+
+
+
 def dlWikiChunk(fileName, icon, redditSubURL):
-    pagesDevSiteSubURL = fileName.replace(".md", "").lower()
-    subURL = pagesDevSiteSubURL
+
     #first, try to get the chunk locally
     try:
         #First, try to get it from the local file
         print("Loading " + fileName + " from local file...")
         with open(fileName, 'r') as f:
-            data = f.read()
+            page = f.read()
         print("Loaded.\n")
-        lines = data.split('\n')
     #if not available locally, download the chunk from github
     except:
         print("Local file not found. Downloading " + fileName + "from Github...")
-        lines = requests.get("https://raw.githubusercontent.com/nbats/FMHYedit/main/" + fileName).text.split('\n')
+        page = requests.get("https://raw.githubusercontent.com/nbats/FMHYedit/main/" + fileName).text
         print("Downloaded")
 
     #add a pretext
     redditBaseURL = "https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/"
     pagesDevSiteBaseURL = "https://fmhy.pages.dev/"
     baseURL = pagesDevSiteBaseURL
-    lines = addPretext(lines, icon, baseURL, subURL)
+    if not fileName=='base64.md':
+        pagesDevSiteSubURL = fileName.replace(".md", "").lower()
+        subURL = pagesDevSiteSubURL
+        lines = page.split('\n')
+        lines = addPretext(lines, icon, baseURL, subURL)
+    elif fileName=='base64.md':
+        lines = extract_base64_sections(page)
 
     return lines
 
@@ -102,9 +148,10 @@ def alternativeWikiIndexing():
         dlWikiChunk("DEVTools.md", "🖥️", "dev-tools"),
         dlWikiChunk("Non-English.md", "🌏", "non-eng"),
         dlWikiChunk("STORAGE.md", "🗄️", "storage"),
+        dlWikiChunk("base64.md", "🔑", "base64"),
         dlWikiChunk("NSFWPiracy.md", "🌶", "https://saidit.net/s/freemediafuckyeah/wiki/index")
     ]
-    return [item for sublist in wikiChunks for item in sublist]
+    return [item for sublist in wikiChunks for item in sublist] #Flatten a <list of lists of strings> into a <list of strings>
 #--------------------------------
 
 
@@ -129,8 +176,9 @@ def getAllLines():
     if doAltIndexing:
         try:
             lines = alternativeWikiIndexing()
-        except:
-            lines = standardWikiIndexing()
+        except Exception as e:
+            #lines = standardWikiIndexing()
+            print(f"An error occurred: {e}")
     else:
         lines = standardWikiIndexing()
     return lines
