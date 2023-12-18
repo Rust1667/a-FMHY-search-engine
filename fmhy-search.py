@@ -137,6 +137,7 @@ def alternativeWikiIndexing():
         dlWikiChunk("System-Tools.md", "💻", "system-tools"),
         dlWikiChunk("File-Tools.md", "🗃️", "file-tools"),
         dlWikiChunk("Internet-Tools.md", "🔗", "internet-tools"),
+        dlWikiChunk("Social-Media-Tools.md", "💬", "social-media"),
         dlWikiChunk("Text-Tools.md", "📝", "text-tools"),
         dlWikiChunk("Video-Tools.md", "📼", "video-tools"),
         dlWikiChunk("Audio-Tools.md", "🔊", "audio-tools"),
