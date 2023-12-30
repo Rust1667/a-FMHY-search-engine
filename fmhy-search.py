@@ -140,7 +140,6 @@ def alternativeWikiIndexing():
         dlWikiChunk("Social-Media-Tools.md", "💬", "social-media"),
         dlWikiChunk("Text-Tools.md", "📝", "text-tools"),
         dlWikiChunk("Video-Tools.md", "📼", "video-tools"),
-        dlWikiChunk("Audio-Tools.md", "🔊", "audio-tools"),
         dlWikiChunk("MISCGuide.md", "📂", "misc"),
         dlWikiChunk("ReadingPiracyGuide.md", "📗", "reading"),
         dlWikiChunk("TorrentPiracyGuide.md", "🌀", "torrent"),
