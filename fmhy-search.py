@@ -84,7 +84,7 @@ def extract_base64_sections(base64_page):
     for section in sections:
         formatted_section = remove_empty_lines( section.strip().replace("#### ", "").replace("\n\n", " - ").replace("\n", ", ") )
         if doBase64Decoding: formatted_section = decode_base64_in_backticks(formatted_section)
-        formatted_section = '[🔑Base64](https://fmhy.pages.dev/base64) ► ' + formatted_section
+        formatted_section = '[🔑Base64](https://rentry.co/FMHYBase64) ► ' + formatted_section
         formatted_sections.append(formatted_section)
     lines = formatted_sections
     return lines
@@ -101,10 +101,14 @@ def dlWikiChunk(fileName, icon, redditSubURL):
         with open(fileName, 'r') as f:
             page = f.read()
         print("Loaded.\n")
-    #if not available locally, download the chunk from github
+    #if not available locally, download the chunk
     except:
-        print("Local file not found. Downloading " + fileName + "from Github...")
-        page = requests.get("https://raw.githubusercontent.com/nbats/FMHYedit/main/" + fileName).text
+        if not fileName=='base64.md':
+            print("Local file not found. Downloading " + fileName + " from Github...")
+            page = requests.get("https://raw.githubusercontent.com/nbats/FMHYedit/main/" + fileName).text
+        elif fileName=='base64.md':
+            print("Local file not found. Downloading rentry.co/FMHYBase64...")
+            page = requests.get("https://rentry.co/FMHYBase64/raw").text.replace("\r", "")
         print("Downloaded")
 
     #add a pretext
@@ -177,7 +181,6 @@ def getAllLines():
         try:
             lines = alternativeWikiIndexing()
         except Exception as e:
-            #lines = standardWikiIndexing()
             print(f"An error occurred: {e}")
     else:
         lines = standardWikiIndexing()
