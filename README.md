@@ -21,3 +21,9 @@ python3 /<route>/fmhy-search.py
 ```
 
 - If on Mac or anything with Python installed, it works too, but I'm not sure what are the exact steps.
+
+### Prefer a GUI?
+Use https://fmhy-search.streamlit.app/
+It is this same search script, but with a GUI created with Streamlit.
+Source code here: https://github.com/Rust1667/fmhy-search-streamlit
+
