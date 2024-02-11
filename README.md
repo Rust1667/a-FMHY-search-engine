@@ -1,7 +1,7 @@
 # A basic search engine for [FMHY](https://www.reddit.com/r/FREEMEDIAHECKYEAH/) (a Python script)
 It looks like this:
 
-![](example-screenshot.png)
+![](https://i.imgur.com/xo5e8wi.png)
 
 ## How to get it working
 ### Requirements
