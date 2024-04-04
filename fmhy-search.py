@@ -113,20 +113,21 @@ def dlWikiChunk(fileName, icon, redditSubURL):
 
     #add a pretext
     redditBaseURL = "https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/"
-    pagesDevSiteBaseURL = "https://fmhy.pages.dev/"
-    baseURL = pagesDevSiteBaseURL
+    siteBaseURL = "https://fmhy.net/"
     if not fileName=='base64.md':
         pagesDevSiteSubURL = fileName.replace(".md", "").lower()
         subURL = pagesDevSiteSubURL
         lines = page.split('\n')
-        lines = addPretext(lines, icon, baseURL, subURL)
+        lines = addPretext(lines, icon, siteBaseURL, subURL)
     elif fileName=='base64.md':
         lines = extract_base64_sections(page)
 
     return lines
 
 def cleanLineForSearchMatchChecks(line):
-    return line.replace('https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/', '/').replace('https://fmhy.pages.dev/', '/')
+    siteBaseURL = "https://fmhy.net/"
+    redditBaseURL = "https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/"
+    return line.replace(redditBaseURL, '/').replace(siteBaseURL, '/')
 
 def alternativeWikiIndexing():
     wikiChunks = [
