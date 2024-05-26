@@ -149,6 +149,7 @@ def alternativeWikiIndexing():
         dlWikiChunk("ReadingPiracyGuide.md", "📗", "reading"),
         dlWikiChunk("TorrentPiracyGuide.md", "🌀", "torrent"),
         dlWikiChunk("img-tools.md", "📷", "img-tools"),
+        dlWikiChunk("gaming-tools.md", "👾", "gaming-tools"),
         dlWikiChunk("LinuxGuide.md", "🐧🍏", "linux"),
         dlWikiChunk("DEVTools.md", "🖥️", "dev-tools"),
         dlWikiChunk("Non-English.md", "🌏", "non-eng"),
