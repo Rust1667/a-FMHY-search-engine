@@ -172,7 +172,7 @@ def standardWikiIndexing():
         print("Local single-page file not found.")
         #If that fails, try to get it from Github
         print("Loading FMHY single-page file from Github...")
-        response1 = requests.get("https://raw.githubusercontent.com/nbats/FMHYedit/main/single-page")
+        response1 = requests.get("https://api.fmhy.net/single-page")
         print("Loaded.\n")
         data = response1.text
     lines = data.split('\n')
