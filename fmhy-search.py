@@ -105,7 +105,7 @@ def dlWikiChunk(fileName, icon, redditSubURL):
     except:
         if not fileName=='base64.md':
             print("Local file not found. Downloading " + fileName + " from Github...")
-            page = requests.get("https://raw.githubusercontent.com/nbats/FMHYedit/main/" + fileName).text
+            page = requests.get("https://raw.githubusercontent.com/fmhy/FMHYedit/main/docs/" + fileName.lower()).text
         elif fileName=='base64.md':
             print("Local file not found. Downloading rentry.co/FMHYBase64...")
             page = requests.get("https://rentry.co/FMHYBase64/raw").text.replace("\r", "")
