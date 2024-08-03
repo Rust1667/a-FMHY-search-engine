@@ -98,7 +98,7 @@ def dlWikiChunk(fileName, icon, redditSubURL):
     try:
         #First, try to get it from the local file
         print("Loading " + fileName + " from local file...")
-        with open(fileName, 'r') as f:
+        with open(fileName.lower(), 'r') as f:
             page = f.read()
         print("Loaded.\n")
     #if not available locally, download the chunk
