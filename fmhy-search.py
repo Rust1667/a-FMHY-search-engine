@@ -55,7 +55,7 @@ def addPretext(lines, icon, baseURL, subURL):
 import base64
 import re
 
-doBase64Decoding = True
+doBase64Decoding = False
 
 def fix_base64_string(encoded_string):
     missing_padding = len(encoded_string) % 4
